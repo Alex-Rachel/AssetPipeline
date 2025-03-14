@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c962c1226e043caa066ec79a5193cc0, type: 3}
+  m_Name: SceneRaw
+  m_EditorClassIdentifier: 
+  enabled: 0
+  path:
+    name: scene_raw
+    pattern: Assets/SceneRaw
+    anchor: 1
+  pathExclusions:
+  - matchType: 0
+    pattern: Assets/SceneRaw/3D
+    ignoreCase: 0
+  assetFilters:
+  - {fileID: 3476666714343543695}
+--- !u!114 &3476666714343543695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2833c50f97654ad2b8034ab06a4dee5a, type: 3}
+  m_Name: Filter_Textures
+  m_EditorClassIdentifier: 
+  enabled: 1
+  showOptions: 0
+  file:
+    name: assetFilter
+    pattern: 
+    anchor: 4
+  assetType: 0
+  otherAssetExtensions: []
+  subPaths: []
+  fileExclusions: []
+  assetProcessors: []
+  parent: {fileID: 11400000}
