@@ -145,6 +145,7 @@ MonoBehaviour:
   - m_AssetType: 8
     m_FileExtensions:
     - .spriteatlas
+    - .spriteatlasv2
   m_DefaultProfileStoragePath: Assets/Editor/AssetPipeline/Settings/
   m_EnabledColor: {r: 0.2688679, g: 1, b: 0.2688679, a: 1}
   m_DisabledColor: {r: 1, g: 0.2688679, b: 0.2688679, a: 1}

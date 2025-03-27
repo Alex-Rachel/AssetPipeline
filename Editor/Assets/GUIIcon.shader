@@ -1,6 +1,6 @@
 ﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-Shader "Hidden/TEngine/Editor/GUIIcon"
+Shader "Hidden/AssetPipeline/Editor/GUIIcon"
 {
     Properties
     {

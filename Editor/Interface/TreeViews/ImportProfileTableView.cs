@@ -42,10 +42,8 @@ namespace AssetPipeline
         ImportProfileTableItem[] m_TreeViewItems;
         int m_NextId;
         int m_NumMatching;
-        ImportProfilesWindow m_window;
-        ImportProfileWindow m_importProfileWindow;
 
-        public ImportProfileTableView(TreeViewState state, MultiColumnHeader multiColumnHeader, ImportProfilesWindow window) : base(state, multiColumnHeader)
+        public ImportProfileTableView(TreeViewState state, MultiColumnHeader multiColumnHeader) : base(state, multiColumnHeader)
         {
             Assert.AreEqual(m_SortOptions.Length, Enum.GetValues(typeof(Columns)).Length, "Ensure number of sort options are in sync with number of Columns enum values");
 
@@ -54,7 +52,6 @@ namespace AssetPipeline
             m_NextId = kFirstId;
             extraSpaceBeforeIconAndLabel = kToggleWidth;
             multiColumnHeader.sortingChanged += OnSortingChanged;
-            m_window = window;
         }
 
         void Clear()
@@ -333,24 +330,7 @@ namespace AssetPipeline
             var importProfile = (AssetImportProfile) userdata;
             if (importProfile)
             {
-                var window = ImportProfileWindow.ShowWindow(importProfile);
-                
-                if (m_importProfileWindow == null)
-                {
-                    m_importProfileWindow = window;
-
-                    var rect = m_importProfileWindow.position;
-                    rect.width = m_window.position.width * 0.5f;
-                    m_importProfileWindow.position = rect;
-                    
-                    // View默认布局为Hor，因此这里不用像ImportProfileWindow.OpenProfileAssetsViewerEditor那样执行两次吸附方法
-                    m_window.AdsorbWindow(m_importProfileWindow, EditorWindowViewUtility.ViewEdge.Right);
-                }
-                else
-                {
-                    window.RemoveTab(window);
-                    m_importProfileWindow.AddTab(window);
-                }
+                ImportProfileWindow.ShowWindow(importProfile);
             }
         }
 

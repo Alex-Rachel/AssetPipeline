@@ -37,25 +37,22 @@ namespace AssetPipeline
         Vector2 m_InspectorScrollView;
         Vector2 m_ProfileScrollView;
         float m_ProfileRectHeight = 0;
-        
-        public static ImportProfileWindow ShowWindow(AssetImportProfile profile)
+
+        public static void ShowWindow(AssetImportProfile profile)
         {
             var windows = EditorWindowUtility.GetWindows<ImportProfileWindow>();
             var window = windows.FirstOrDefault(x => x.m_Target == profile);
             if (window)
             {
                 window.Focus();
-                return window;
+                return;
             }
 
             window = CreateInstance<ImportProfileWindow>();
-            // 使用了自动吸附的方式，因此注释掉该方法，让其初始时为单独的EditorWindow
-            // window.TryDockNextTo(typeof(ImportProfilesWindow));
+            window.TryDockNextTo(typeof(ImportProfilesWindow));
             window.m_Target = profile;
             window.OnEnable();
             window.Show();
-
-            return window;
         }
 
         void UpdateWindowTitle()
@@ -91,6 +88,10 @@ namespace AssetPipeline
 
         void OnGUI()
         {
+            if (serializedObject == null)
+            {
+                return;
+            }
             m_AssetChanged = false;
             serializedObject.Update();
 
@@ -116,6 +117,11 @@ namespace AssetPipeline
             EditorGUILayout.EndVertical();
             GUI.Box(new Rect(viewX + 0.75f, 41, 1.5f, position.height), GUIContent.none, DaiGUIStyles.verticalSeparator);
 
+            if (serializedObject == null)
+            {
+                return;
+            }
+            
             m_AssetChanged = serializedObject.ApplyModifiedProperties();
             if (m_AssetChanged)
             {
@@ -147,7 +153,7 @@ namespace AssetPipeline
             var buttonSize = DaiGUIStyles.miniButton.CalcSize(DaiGUIContent.openAssetsViewer);
             if (GUI.Button(new Rect(viewRect.xMax - buttonSize.x, viewRect.y + (r2.height - buttonSize.y) * 0.5f, buttonSize.x, buttonSize.y), DaiGUIContent.openAssetsViewer, DaiGUIStyles.miniButton))
             {
-                OpenProfileAssetsViewerEditor(m_Target);
+                ImportProfileAssetsViewerWindow.ShowWindow(m_Target);
             }
 
             viewRect.y += r2.height + kSpacing;
@@ -199,16 +205,6 @@ namespace AssetPipeline
 
             GUI.EndScrollView();
             m_ProfileRectHeight = viewRect.y + 60;
-        }
-
-        void OpenProfileAssetsViewerEditor(AssetImportProfile assetImportProfile)
-        {
-            var window = ImportProfileAssetsViewerWindow.ShowWindow(assetImportProfile);
-            
-            // 首次吸附时View的布局可能为Hor，因此会将window吸附在左下/右下方
-            this.AdsorbWindow(window, EditorWindowViewUtility.ViewEdge.Bottom);
-            // 执行垂直吸附后会将View的布局从Hor变为Ver，再执行一次即可将window吸附在底下
-            this.AdsorbWindow(window, EditorWindowViewUtility.ViewEdge.Bottom);
         }
 
         Rect DrawFilterRow(Rect r, AssetFilter assetFilter, AssetFilter aboveFilter, AssetFilter belowFilter)

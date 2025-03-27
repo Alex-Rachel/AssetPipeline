@@ -20,7 +20,7 @@ namespace AssetPipeline.Processors
             m_MaterialSetupList.drawHeaderCallback = rect => EditorGUI.LabelField(rect, "Material Setups", DaiGUIStyles.boldLabel);
             m_MaterialSetupList.elementHeightCallback = elementIndex => EditorGUI.GetPropertyHeight(m_MaterialSetups.GetArrayElementAtIndex(elementIndex));
             m_MaterialSetupList.drawElementCallback = DrawMaterialSetupElement;
-            m_ShaderNames = ShaderUtil.GetAllShaderInfo().Where(x => x.name != "Hidden/TEngine/Editor/ColoredTexture").Select(x => x.name).ToArray();
+            m_ShaderNames = ShaderUtil.GetAllShaderInfo().Where(x => x.name != "Hidden/AssetPipeline/Editor/ColoredTexture").Select(x => x.name).ToArray();
             base.OnEnable();
         }
 

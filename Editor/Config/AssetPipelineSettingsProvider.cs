@@ -102,7 +102,7 @@ namespace AssetPipeline
                 AssetPipelineSettings.GetOrCreateSettings();
             }
 
-            return new AssetPipelineSettingsProvider("Project/TEngine/Asset Pipeline", SettingsScope.Project) {keywords = GetSearchKeywordsFromGUIContentProperties<Styles>()};
+            return new AssetPipelineSettingsProvider("Project/Asset Pipeline", SettingsScope.Project) {keywords = GetSearchKeywordsFromGUIContentProperties<Styles>()};
         }
     }
 }

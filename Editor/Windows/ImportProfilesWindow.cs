@@ -76,7 +76,7 @@ namespace AssetPipeline
                 multiColumnHeader.ResizeToFit();
             }
 
-            m_TreeView = new ImportProfileTableView(m_TreeViewState, multiColumnHeader, this);
+            m_TreeView = new ImportProfileTableView(m_TreeViewState, multiColumnHeader);
             m_TreeView.ReloadData();
             m_TreeView.Reload();
             m_SearchField = new SearchField();
@@ -122,7 +122,7 @@ namespace AssetPipeline
 
             if (GUILayout.Button("Settings", DaiGUIStyles.toolbarButton, GUILayout.Width(100)))
             {
-                SettingsService.OpenProjectSettings("Project/TEngine/Asset Pipeline");
+                SettingsService.OpenProjectSettings("Project/Asset Pipeline");
             }
 
             EditorGUILayout.EndHorizontal();

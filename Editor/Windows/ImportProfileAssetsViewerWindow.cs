@@ -9,33 +9,30 @@ namespace AssetPipeline
 {
     internal class ImportProfileAssetsViewerWindow : EditorWindow
     {
-        public static ImportProfileAssetsViewerWindow ShowWindow(AssetImportProfile profile)
+        public static void ShowWindow(AssetImportProfile profile)
         {
             var windows = EditorWindowUtility.GetWindows<ImportProfileAssetsViewerWindow>();
             var window = windows.FirstOrDefault(x => x.m_Target == profile);
             if (window)
             {
                 window.Focus();
-                return window;
+                return;
             }
 
             window = CreateInstance<ImportProfileAssetsViewerWindow>();
-            // 使用了自动吸附的方式，因此注释掉该方法，让其初始时为单独的EditorWindow
-            // var dockTarget = windows.FirstOrDefault(x => x);
-            // if (dockTarget)
-            // {
-            //     window.TryDockNextTo(typeof(ImportProfileAssetsViewerWindow));
-            // }
-            // else
-            // {
-            //     window.position = new Rect(window.position.position, new Vector2(700, 700));
-            // }
+            var dockTarget = windows.FirstOrDefault(x => x);
+            if (dockTarget)
+            {
+                window.TryDockNextTo(typeof(ImportProfileAssetsViewerWindow));
+            }
+            else
+            {
+                window.position = new Rect(window.position.position, new Vector2(700, 700));
+            }
 
             window.titleContent = new GUIContent($"Assets Viewer for {profile.name}");
             window.m_Target = profile;
             window.Show();
-
-            return window;
         }
 
         static string[] cachedAssetPaths => AssetImportPipeline.CachedAssetPaths;

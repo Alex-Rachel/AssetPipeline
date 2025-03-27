@@ -55,7 +55,7 @@ namespace AssetPipeline
                         new AssetTypeFileExtensions(ImportAssetType.Animations, ".anim"),
                         new AssetTypeFileExtensions(ImportAssetType.Materials, ".mat"),
                         new AssetTypeFileExtensions(ImportAssetType.Prefabs, ".prefab"),
-                        new AssetTypeFileExtensions(ImportAssetType.SpriteAtlases, ".spriteatlas"),
+                        new AssetTypeFileExtensions(ImportAssetType.SpriteAtlases, ".spriteatlas",".spriteatlasv2"),
                     };
                     s_AssetPipelineSettings.m_DefaultProfileStoragePath = kDefaultProfileStoragePath;
                     AssetDatabase.CreateAsset(s_AssetPipelineSettings, kSettingsPath);

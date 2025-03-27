@@ -23,7 +23,7 @@ MonoBehaviour:
   subPaths: []
   fileExclusions: []
   assetProcessors:
-  - {fileID: 2251338471046930608}
+  - {fileID: 4315205504528667874}
   parent: {fileID: 11400000}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -37,10 +37,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c962c1226e043caa066ec79a5193cc0, type: 3}
   m_Name: UIRaw
   m_EditorClassIdentifier: 
-  enabled: 0
+  enabled: 1
   path:
     name: ui_raw
-    pattern: Assets/UIRaw
+    pattern: Assets/AssetRaw/UIRaw/Raw
     anchor: 1
   pathExclusions: []
   assetFilters:
@@ -60,3 +60,55 @@ MonoBehaviour:
   parent: {fileID: -5265369776087779653}
   enabled: 0
   runOnImport: 0
+--- !u!114 &4315205504528667874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe6242d75f94bfcb454b3d50cba1494, type: 3}
+  m_Name: Textures_SetTextureAllSettings
+  m_EditorClassIdentifier: 
+  parent: {fileID: -5265369776087779653}
+  enabled: 1
+  runOnImport: 1
+  fireOnEveryImport: 1
+  config:
+    isEnabled: 0
+    textureType: 0
+    textureShape: 1
+    sRGBTexture: 1
+    alphaSource: 1
+    alphaIsTransparency: 0
+    ignorePNGFileGamma: 0
+    nonPowerOf2: 1
+    readWriteEnabled: 0
+    streamingMipmaps: 0
+    vitrualTextureOnly: 0
+    generateMipMaps: 0
+    borderMipMaps: 0
+    mipmapFilter: 0
+    mipMapsPreserveCoverage: 0
+    fadeoutMipMaps: 0
+    wrapMode: 1
+    filterMode: 1
+    anisoLevel: 1
+    platformConfigs:
+    - platformName: 0
+      maxSize: 2048
+      format: 50
+      compression: 1
+      useCrunchCompression: 0
+    - platformName: 1
+      maxSize: 2048
+      format: 50
+      compression: 1
+      useCrunchCompression: 0
+    - platformName: 2
+      maxSize: 2048
+      format: 50
+      compression: 1
+      useCrunchCompression: 0

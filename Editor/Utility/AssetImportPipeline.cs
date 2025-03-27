@@ -77,7 +77,9 @@ namespace AssetPipeline
 
                 case ".spriteatlas":
                     return "SpriteAtlas";
-
+                
+                case ".spriteatlasv2":
+                    return "SpriteAtlas";
                 case ".preset":
                     return "Preset";
 
