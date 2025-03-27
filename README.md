@@ -1,67 +1,67 @@
-# Asset Pipeline for Unity
+# Unity 资产处理管线
 
-This tool is a rule-based approach to asset postprocessors within Unity. 
-The goal is develop re-usable processors that can be applied to assets when they are imported.
+- [README 中文](./README.md)
+- [README English](./README_EN.md)
 
-## Asset Import Profiles
-Asset Import Profiles are `ScriptableObject`s that store information about how to import assets based on a rule based path system.
-The rules consist of a base folder, asset types to process and processors that should execute on these assets when they are imported.
+该工具是Unity中基于规则的资产后处理器解决方案，旨在开发可重复使用的处理器，这些处理器可以在资产导入时自动应用。
 
-### Asset Types
-The asset types are Textures, Models, Audio, Videos, Fonts, Animations, Materials, Prefabs, SpriteAtlases and Other.
-_Other_ can be used to match against any asset that matches a specified set of file extensions.
+## 资产导入配置文件
 
-## Path Variables
-The asset import profile folder path and asset type file filters can create variables that you can use within the asset processors.
+资产导入配置文件是继承自 `ScriptableObject` 的配置文件，用于存储基于路径规则的资产导入策略。这些规则包含：
+- 基础文件夹路径
+- 要处理的资产类型
+- 匹配资产后需要执行的处理器列表
 
-To specify a variable, wrap the variable name in `{}`.  As an example, `Assets/3DGamekit/Art/Textures/Characters/{characterName}/` will create the variable `characterName` with the folder name as a value when processors are run.  This variable can be used when setting the asset bundle name, asset label, etc.
+### 支持资产类型
 
-The variables can be forced to match a string convention such as snake case or pascal case.  This can be done by adding a suffix to the variable name `{characterName:\snake}`.
+支持纹理、模型、音频、视频、字体、动画、材质、预制件、Sprite图集等多种类型。_其他_ 类型可用于匹配指定文件扩展名集合外的任意资产。
 
-| Convention        | Variable Suffix | Convention Example  |
-| :---------------: | :-------------: | :-----------------: |
-| No convention     | `:\none`        | The quick brown fox |
-| Snake Case        | `:\snake`       | the_quick_brown_fox |
-| Upper Snake Case  | `:\usnake`      | THE_QUICK_BROWN_FOX |
-| Pascal Case       | `:\pascal`      | TheQuickBrownFox    | 
-| Camel Case        | `:\camel`       | theQuickBrownFox    |
-| Kebab Case        | `:\kebab`       | the-quick-brown-fox |
-| Upper Case        | `:\upper`       | THE QUICK BROWN FOX |
-| Lower Case        | `:\lower`       | the quick brown fox |
+## 路径变量系统
 
-The variable suffix can also be used as basic regex. As an example if the variable should be enforced to be a number, this can be achieved by using `:\d+`.
+在资产导入配置文件的路径定义和文件过滤器中，可以使用动态变量（使用 `{}` 包裹变量名）。例如路径 `Assets/3DGamekit/Art/Textures/Characters/{characterName}/` 将自动捕获文件夹名作为 `characterName` 变量值，该变量可在设置资源包名、标签等处理器中使用。
 
-When using the variable within a processor that supports it, you can use the string convention suffixes to convert the variable value to a specific string convention.
+变量支持强制命名规范校验（通过后缀指定）：
 
-## Asset Processors
-Asset Processors are similar asset postprocessors that are executed when an asset is imported and it matches an profile and asset filter.
+| 命名规范        | 变量后缀     | 示例                |
+| :------------: | :---------: | :----------------: |
+| 无规范         | `:\none`    | The quick brown fox |
+| 蛇形命名法      | `:\snake`   | the_quick_brown_fox |
+| 大蛇形命名法    | `:\usnake`  | THE_QUICK_BROWN_FOX |
+| 帕斯卡命名法    | `:\pascal`  | TheQuickBrownFox    |
+| 驼峰命名法      | `:\camel`   | theQuickBrownFox    |
+| 短横线命名法    | `:\kebab`   | the-quick-brown-fox |
+| 全大写          | `:\upper`   | THE QUICK BROWN FOX |
+| 全小写          | `:\lower`   | the quick brown fox |
 
-There are several asset processors provided and more will be added over time.
+后缀也支持正则表达式校验（例如 `:\d+` 强制数字格式）。在处理器中使用变量时，可通过后缀转换变量值的格式。
 
-| Processor           | Asset Types | Descriptions |
-| :-----------------: | :---------: | :----------------------------------------------------------------------------------------------: |
-| Apply Preset        | Textures, Models, Audio, SpriteAtlases, Fonts, Videos | Applies a preset for the asset type                    |
-| Set Asset Bundle    | All         | Assigns the asset bundle name and variant                                                        |
-| Set Asset Labels    | All         | Assigns labels                                                                                   |
-| Add To Sprite Atlas | Textures    | Adds a sprite or texture to a SpriteAtlas and will create the SpriteAtlas if it does not exist   |
-| Pack Texture 2D     | Textures    | Packs a texture into a channel of another texture                                                |
-| Extract Materials   | Models      | Extracts materials from a model                                                                  |
-| Setup Materials     | Models      | Sets up materials from a model - Sets shader, properties, and assigns textures if they are found |
-| Strip Mesh Data     | Models      | Strips mesh data from model, such as vertex colors, other uv channels                            |
-| Reset Transform     | Models      | Resets position, rotation and scale on the model root object                                     |
-| Create Prefab       | Models      | Creates a prefab with the option to set layer, tag and mesh renderer(s) settings                 |
+## 资产处理器
 
-### User Data within the .meta file
-Most processors will add custom user data to the meta file.  This is done to signify that it has processed the asset and prevent multiple applications of the processor to the asset when it should only run once.
+资产处理器是在资产导入时自动执行的模块化功能单元，当前包含以下核心处理器：
 
-### Custom Processors
-Custom processors can be created by them via code.  This is done by inheriting from the `AssetProcessor` class.
+| 处理器            | 适用类型      | 功能描述                                                                 |
+| :--------------: | :----------: | :---------------------------------------------------------------------: |
+| 应用预设          | 纹理/模型/音频等 | 应用预定义的导入设置                                                     |
+| 设置资源包        | 全部          | 指定AssetBundle名称和变体                                                |
+| 设置资源标签      | 全部          | 添加资源标签                                                             |
+| 添加到Sprite图集 | 纹理          | 自动创建/更新Sprite图集                                                  |
+| 纹理通道打包      | 纹理          | 将纹理打包到其他纹理的指定通道                                            |
+| 材质提取          | 模型          | 从模型自动提取材质                                                       |
+| 材质配置          | 模型          | 自动配置材质属性并关联纹理                                                |
+| 网格数据精简      | 模型          | 移除顶点颜色、冗余UV通道等非必要数据                                       |
+| 变换重置          | 模型          | 重置模型的坐标/旋转/缩放                                                 |
+| 预制件生成        | 模型          | 自动生成预制件并配置渲染参数                                               |
 
-The `AssetProcessorDescription` attribute will allow you to setup a custom icon and assign what asset types are viable for your processor. 
-The default will make the processor available for all asset types.
+### .meta文件用户数据
 
-Here is an example processor that will set labels on assets
-```c#
+多数处理器会在.meta文件中记录处理状态，防止重复处理。
+
+### 自定义处理器
+
+可通过继承 `AssetProcessor` 类创建自定义处理器，示例：
+
+```csharp
+// 资产标签设置处理器示例
 using System.Linq;
 using Daihenka.AssetPipeline.Import;
 using UnityEditor;
@@ -75,26 +75,30 @@ public class SetAssetLabels : AssetProcessor
     public override void OnPostprocess(Object asset, string assetPath)
     {
         var assetLabels = AssetDatabase.GetLabels(asset).ToHashSet();
-        assetLabels.AddRange(labels);
+        assetLabels.AddRange(Labels);
         AssetDatabase.SetLabels(asset, assetLabels.ToArray());
         
-        // Update the user data in the meta file
         ImportProfileUserData.AddOrUpdateProcessor(assetPath, this);
     }
 }
 ```
 
-## How to Use
-Open the `Import Profiles` window via the `Tools > Asset Pipeline > Import Profiles` menu item.
+## 使用指南
 
-![image](https://user-images.githubusercontent.com/6211561/115570406-5fd1c100-a2be-11eb-8046-63deaf70f3f3.png)
+通过菜单项 `Tools > Asset Pipeline > Import Profiles` 打开配置界面：
 
-![image](https://user-images.githubusercontent.com/6211561/115570335-521c3b80-a2be-11eb-83a6-486bdb908c7a.png)
+![配置界面示意图](https://user-images.githubusercontent.com/6211561/115570406-5fd1c100-a2be-11eb-8046-63deaf70f3f3.png)
 
-From here you can create Import Profiles via the `Create New` button.
+![配置文件列表](https://user-images.githubusercontent.com/6211561/115570335-521c3b80-a2be-11eb-83a6-486bdb908c7a.png)
 
-Once you have created an import profile, double click on the item to open the editor for it.
+在此界面中：
+1. 点击 `Create New`（新建）按钮创建导入配置文件
+2. 双击配置文件条目即可打开编辑器进行配置
 
-![image](https://user-images.githubusercontent.com/6211561/115570637-91e32300-a2be-11eb-8b4d-352a371cd4a0.png)
+![配置文件编辑器](https://user-images.githubusercontent.com/6211561/115570637-91e32300-a2be-11eb-8b4d-352a371cd4a0.png)
 
-Here you can specify the Base Folder and setup any Asset Filters and Processors.
+配置项说明：
+- 基础路径设置：指定资产扫描的根目录
+- 资产过滤器：配置类型匹配规则与路径变量
+- 处理器列表：添加/管理要执行的自动化处理流程
+
