@@ -103,7 +103,7 @@ namespace AssetPipeline
         {
             if (!iconMat || !iconMat.shader)
             {
-                var shader = ShaderUtil.CreateShaderAsset(System.IO.File.ReadAllText("Assets/Editor/AssetPipeline/Editor/Assets/GUIIcon.shader"));
+                var shader = Shader.Find("Hidden/AssetPipeline/Editor/GUIIcon");
                 iconMat = new Material(shader);
             }
 
