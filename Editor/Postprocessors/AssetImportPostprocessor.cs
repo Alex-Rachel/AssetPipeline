@@ -3,7 +3,9 @@ using System.Reflection;
 using AssetPipeline.Import;
 using UnityEditor;
 using UnityEditor.AssetImporters;
+using UnityEditor.U2D;
 using UnityEngine;
+using UnityEngine.U2D;
 
 namespace AssetPipeline
 {
@@ -58,6 +60,10 @@ namespace AssetPipeline
         {
             foreach (var processor in GetProcessors(assetPath, MethodBase.GetCurrentMethod().Name))
             {
+                if (assetImporter is SpriteAtlasImporter spriteAtlasImporter)
+                {
+                    processor.OnPostprocessSpriteAtlas(assetPath, spriteAtlasImporter, AssetDatabase.LoadAssetAtPath<SpriteAtlas>(assetPath));
+                }
                 processor.OnPreprocessAsset(assetPath, assetImporter);
             }
 

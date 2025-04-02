@@ -4,7 +4,9 @@ using System.Text.RegularExpressions;
 using AssetPipeline.NamingConvention;
 using UnityEditor;
 using UnityEditor.AssetImporters;
+using UnityEditor.U2D;
 using UnityEngine;
+using UnityEngine.U2D;
 using Object = UnityEngine.Object;
 
 namespace AssetPipeline.Import
@@ -193,6 +195,10 @@ namespace AssetPipeline.Import
         {
         }
 
+        public virtual void OnPostprocessSpriteAtlas(string assetPath, SpriteAtlasImporter importer, SpriteAtlas spriteAtlas)
+        {
+        }
+    
         /// <summary>
         /// This is called before animation from a model (.fbx, .mb file, etc.) is imported.
         /// </summary>

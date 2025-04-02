@@ -429,8 +429,8 @@ namespace AssetPipeline
             return result;
         }
 
-        // TODO
-        // [MenuItem("Tools/资产管理工具（Asset Pipeline）/一键处理资产")]
+
+        [MenuItem("Tools/资产管理工具(Asset Pipeline)/一键处理资产")]
         static void DealWithAsset()
         {
             try

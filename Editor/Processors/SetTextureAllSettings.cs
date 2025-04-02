@@ -33,7 +33,6 @@ namespace AssetPipeline.Processors
             }
 
             return config.IsConfigOK(ti);
-            ;
         }
 
         void OnPostprocessTexture(string assetPath, TextureImporter importer)

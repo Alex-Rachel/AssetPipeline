@@ -35,7 +35,6 @@ namespace AssetPipeline.Processors
                 EditorGUILayout.HelpBox("This processor will only execute when a new asset is added.\nTo run on every import, tick the Run On Every Import toggle above.", MessageType.Warning);
             }
             
-            
             EditorGUILayout.PropertyField(m_IgnoreBuildSettingsOrderProperty, guiIgnoreBuildSettingsOrder);
             if (!m_IgnoreBuildSettingsOrderProperty.boolValue)
             {
